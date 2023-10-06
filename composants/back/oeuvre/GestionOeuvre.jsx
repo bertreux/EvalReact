@@ -53,7 +53,6 @@ const GestionOeuvre = ({navigation}) => {
             <FlatList
                 data={oeuvre}
                 renderItem={function ({item}) {
-                    const date = new Timestamp(item.dt_creation.seconds, item.dt_creation.nanoseconds).toDate();
                     return <View style={{
                         flexDirection: "row",
                         borderWidth: 1,
@@ -63,17 +62,14 @@ const GestionOeuvre = ({navigation}) => {
                     }}>
                         <Button onPress={function () {
                             navigation.navigate("update-oeuvre", {id: item.id})
-                        }} color="orange" title="m"/>
+                        }} color="orange" title=" m "/>
                         <Button onPress={function () {
                             supprimer(item.id)
-                        }} color="red" title="s"/>
+                        }} color="red" title=" s "/>
                         <View style={{marginLeft: 10}}>
                             <Image source={{uri: item.image, width: 150, height: 100}}/>
                             <Text style={{marginStart: 5}}> ID : {item.id}</Text>
                             <Text style={{marginStart: 5}}> NOM : {item.nom}</Text>
-                            <Text style={{marginStart: 5}}>DESCRIPTION : {item.description}</Text>
-                            <Text style={{marginStart: 5}}>AUTEUR : {item.auteur}</Text>
-                            <Text style={{marginStart: 5}}>DATE : {date.toLocaleDateString("fr-FR")}</Text>
                         </View>
                     </View>
                 }}

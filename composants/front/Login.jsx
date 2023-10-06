@@ -35,11 +35,15 @@ const Login = ({navigation}) => {
                     if (user.password == item.password) {
                         login(item)
                         navigation.navigate('gestion')
+                        setEmail("")
+                        setPassword("")
+                        return;
+                    }else{
+                        setErreurs(["Email ou mot de passe non valide"])
+                        return ;
                     }
                 })
-                setEmail("")
-                setPassword("")
-                return;
+                
             } else {
                 setErreurs(["Email ou mot de passe non valide"])
             }
