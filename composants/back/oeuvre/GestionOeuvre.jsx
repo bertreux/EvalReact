@@ -57,7 +57,7 @@ const GestionOeuvre = ({navigation}) => {
             </View>
             {profil.role == 'admin' ? <Text style={style.title}>Toutes les oeuvres : </Text> : <Text style={style.title}>Vos oeuvres : </Text>}
             <FlatList
-                style={{marginBottom: 350}}
+                style={{marginBottom: 260}}
                 data={oeuvre}
                 renderItem={function ({item}) {
                     return <View style={{

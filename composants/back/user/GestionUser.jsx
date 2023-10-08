@@ -43,7 +43,7 @@ const GestionUser = ({navigation}) => {
             </View>
             <Text style={style.title}>Tous les users : </Text>
             <FlatList
-                style={{marginBottom: 350}}
+                style={{marginBottom: 260}}
                 data={user}
                 renderItem={function ({item}) {
                     return <View style={{

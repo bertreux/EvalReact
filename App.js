@@ -21,7 +21,7 @@ export default function App() {
                                 return <Icone size={20} color={'black'} name="home"/>
                             }
                         }}
-                                     component={NavigationStack} name="home"/>
+                                    component={NavigationStack} name="home"/>
                         <Tabs.Screen options={{
                             tabBarIcon: function () {
                                 return <Icone size={20} color={'black'} name="eye"/>
