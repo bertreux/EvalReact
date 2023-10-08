@@ -43,7 +43,7 @@ const ForgotMdp = ({navigation}) => {
     }
 
     return (
-        <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center", marginTop: 200}}>
             <TextInput placeholder="email" style={style.input} value={email} onChangeText={function (text) {
                 setEmail(text);
                 setErreurs([]);
@@ -52,7 +52,9 @@ const ForgotMdp = ({navigation}) => {
                 setPassword(text);
                 setErreurs([]);
             }}/>
-            <Button onPress={handleSubmit} title="change password"/>
+            <View style={{marginTop:20,marginBottom:20}}>
+                <Button onPress={handleSubmit} title="change password"/>
+            </View>
             <FlatList
                 data={erreurs}
                 renderItem={function ({item}) {
@@ -70,8 +72,6 @@ const style = StyleSheet.create({
         borderWidth: 2, borderColor: 'black',
         paddingVertical: 5, paddingHorizontal: 10,
         borderRadius: 5,
-        marginBottom: 10, width: 200, backgroundColor: 'white'
+        marginBottom: 10, width: 250, backgroundColor: 'white'
     },
-    btn: {marginBottom: 20},
-    text: {fontWeight: 'bold'},
 })

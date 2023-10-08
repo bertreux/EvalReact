@@ -60,7 +60,7 @@ const Login = ({navigation}) => {
     }
 
     return (
-        <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center", marginTop: 200}}>
             <TextInput placeholder="email" style={style.input} value={email} onChangeText={function (text) {
                 setEmail(text);
                 setErreurs([]);
@@ -94,8 +94,8 @@ const style = StyleSheet.create({
         borderWidth: 2, borderColor: 'black',
         paddingVertical: 5, paddingHorizontal: 10,
         borderRadius: 5,
-        marginBottom: 10, width: 200, backgroundColor: 'white'
+        marginBottom: 10, width: 250, backgroundColor: 'white',
     },
-    btn: {marginBottom: 20},
+    btn: {marginBottom: 20, justifyContent:'center'},
     text: {fontWeight: 'bold'},
 })

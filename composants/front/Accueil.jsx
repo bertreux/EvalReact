@@ -1,4 +1,4 @@
-import {View, Text, FlatList, Image, Button} from "react-native";
+import {View, Text, FlatList, Image, Button, StyleSheet} from "react-native";
 import {useEffect, useState} from "react";
 import db from '../../firebaseConfig';
 import {collection, getDocs} from "firebase/firestore";
@@ -27,14 +27,18 @@ const Accueil = ({navigation}) => {
 
     return (
         <View>
+            <Text style={style.title}>Ensemble des oeuvres du musée : </Text>
             <FlatList
+                style={{marginBottom: 100}}
                 data={oeuvre}
                 renderItem={function ({item, key}) {
                     return <View key={key}
                                  style={{borderWidth: 1, borderBlockColor: "black", padding: 5, alignItems: "center"}}>
-                        <Text>{item.nom}</Text>
-                        <Image source={{uri: item.image, width: 150, height: 100}}/>
-                        <Button onPress={() => handleClick(item.id)} color="orange" title="Voir les détails"/>
+                        <Text style={style.oeuvreName}>{item.nom}</Text>
+                        <Image source={{uri: item.image, width: 250, height: 150}}/>
+                        <View style={{marginTop: 20, marginBottom: 20}}>
+                            <Button onPress={() => handleClick(item.id)} color="orange" title="Voir les détails"/>
+                        </View>
                     </View>
                 }}/>
         </View>
@@ -43,3 +47,9 @@ const Accueil = ({navigation}) => {
 
 export default Accueil;
 
+const style = StyleSheet.create({
+    title: {
+        fontWeight: 'bold', fontSize: 20, marginBottom: 20, marginTop: 20
+    },
+    oeuvreName: {marginBottom: 10, fontWeight: 'bold', fontSize: 20},
+})

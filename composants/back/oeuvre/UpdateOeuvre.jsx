@@ -1,14 +1,17 @@
 import {StyleSheet, Text, View, Button, TextInput, FlatList, TouchableHighlight} from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {schemaOeuvre} from "../../../verif/oeuvre"
 import db from "../../../firebaseConfig"
 import {getDoc, updateDoc, doc, Timestamp} from "firebase/firestore"
 import DateTimePicker from '@react-native-community/datetimepicker'
 import {useIsFocused} from "@react-navigation/native";
+import {ProfilContext} from "../../../context/profilContext";
 
 const UpdateOeuvre = ({route, navigation}) => {
 
     const isFocused = useIsFocused()
+
+    const {profil} = useContext(ProfilContext)
 
     const [id, setId] = useState("");
     const [image, setImage] = useState("")
@@ -55,8 +58,7 @@ const UpdateOeuvre = ({route, navigation}) => {
     }
 
     return (
-        <View>
-            <Text>Modifier une oeuvre</Text>
+        <View style={{marginTop: 30}}>
             <TextInput placeholder="image" onChangeText={function (text) {
                 setImage(text);
                 setErreurs([]);
@@ -69,10 +71,10 @@ const UpdateOeuvre = ({route, navigation}) => {
                 setDescription(text);
                 setErreurs([]);
             }} value={description} style={styles.input}/>
-            <TextInput placeholder="auteur" onChangeText={function (text) {
+            {profil.role == "admin" && <TextInput placeholder="auteur" onChangeText={function (text) {
                 setAuteur(text);
                 setErreurs([]);
-            }} value={auteur} style={styles.input}/>
+            }} value={auteur} style={styles.input}/>}
             <View style={{flexDirection: "row"}}>
                 <TextInput placeholder="date de création" editable={false} value={dt_creation.toDateString()}
                            style={styles.inputDate}/>
@@ -91,15 +93,19 @@ const UpdateOeuvre = ({route, navigation}) => {
                 onChange={onChange}
                 mode={'date'}
             />}
-
+            <View style={{margin:20, marginTop:30, borderColor: 'black', borderWidth:2}}>
             <Button title="modifier" onPress={handleSubmit} color="orange"/>
+            </View>
+            <View style={{justifyContent: "center", alignItems: "center"}}>
             <FlatList
                 data={erreurs}
                 renderItem={function ({item}) {
                     return <Text style={{color: 'red'}}>{item}</Text>
                 }}
             />
-            <View style={{marginTop: 10}}>
+            </View>
+            <View style={{flex:1,borderColor: 'black', borderWidth:4, marginTop:20}}></View>
+            <View style={{margin:20, marginTop:30, borderColor: 'black', borderWidth:2}}>
                 <Button onPress={function () {
                     navigation.goBack()
                 }} title="retour à l'accueil" color="purple"/>

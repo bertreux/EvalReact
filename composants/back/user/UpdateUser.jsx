@@ -60,8 +60,7 @@ const UpdateUser = ({navigation, route}) => {
     };
 
     return (
-        <View>
-            <Text>Modifier un profil user</Text>
+        <View style={{marginTop: 30}}>
             <TextInput placeholder="email" onChangeText={function (text) {
                 setEmail(text);
                 setErreurs([]);
@@ -70,7 +69,7 @@ const UpdateUser = ({navigation, route}) => {
                 setPassword(text);
                 setErreurs([]);
             }} value={password} style={styles.input}/>
-            <View style={{flexDirection: 'row', marginTop: 10}}>
+            <View style={{flexDirection: 'row', marginTop: 10, marginLeft: 10}}>
                 <Text>Etes-vous un admin ? </Text>
                 <Switch
                     style={{marginLeft: 20, top: -13}}
@@ -78,15 +77,21 @@ const UpdateUser = ({navigation, route}) => {
                     value={role}
                 />
             </View>
-            <Button title="modifier" onPress={handleSubmit} color="orange"/>
-            <FlatList
+            <View style={{margin:20, marginTop:20, borderColor: 'black', borderWidth:2}}>
+                <Button title="modifier" onPress={handleSubmit} color="orange"/>
+            </View>
+            <View style={{justifyContent: "center", alignItems: "center"}}>
+                <FlatList
                 data={erreurs}
                 renderItem={function ({item}) {
                     return <Text style={{color: 'red'}}>{item}</Text>
                 }}
                 value={role}
             />
-            <View style={{marginTop: 10}}>
+            </View>
+            
+            <View style={{flex:1,borderColor: 'black', borderWidth:4, marginTop:20}}></View>
+            <View style={{margin:20, marginTop:30, borderColor: 'black', borderWidth:2}}>
                 <Button onPress={function () {
                     navigation.goBack()
                 }} title="retour à l'accueil" color="purple"/>

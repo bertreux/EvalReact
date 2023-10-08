@@ -55,8 +55,7 @@ const CreateOeuvre = ({navigation}) => {
     }
 
     return (
-        <View>
-            <Text>Créer une nouvelle oeuvre</Text>
+        <View style={{marginTop: 30}}>
             <TextInput placeholder="image" onChangeText={function (text) {
                 setImage(text);
                 setErreurs([]);
@@ -91,14 +90,19 @@ const CreateOeuvre = ({navigation}) => {
                 onChange={onChange}
                 mode={'date'}
             />}
+            <View style={{margin:20, marginTop:30, borderColor: 'black', borderWidth:2}}>
             <Button title="créer" onPress={handleSubmit}/>
+            </View>
+            <View style={{justifyContent: "center", alignItems: "center"}}>
             <FlatList
                 data={erreurs}
                 renderItem={function ({item}) {
                     return <Text style={{color: 'red'}}>{item}</Text>
                 }}
             />
-            <View style={{marginTop: 10}}>
+            </View>
+            <View style={{flex:1,borderColor: 'black', borderWidth:4, marginTop:20}}></View>
+            <View style={{margin:20, marginTop:30, borderColor: 'black', borderWidth:2}}>
                 <Button onPress={function () {
                     navigation.goBack()
                 }} title="retour à l'accueil" color="purple"/>

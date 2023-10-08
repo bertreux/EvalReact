@@ -1,7 +1,7 @@
 import {Timestamp, collection, deleteDoc, doc, getDocs, query, where} from "firebase/firestore";
 import {useEffect, useState, useContext} from "react";
 import db from '../../../firebaseConfig';
-import {Button, FlatList, Image, Text, View} from "react-native";
+import {Button, FlatList, Image, Text, View, StyleSheet} from "react-native";
 import {ProfilContext} from "../../../context/profilContext"
 import {useIsFocused} from "@react-navigation/native";
 
@@ -44,13 +44,20 @@ const GestionOeuvre = ({navigation}) => {
 
     return (
         <View>
+            <View style={{margin:20, marginTop:20, borderColor: 'black', borderWidth:2}}>
             <Button onPress={() => {
                 navigation.navigate("gestion")
-            }} title="retour au menu des gestion"/>
-            <Button onPress={() => {
+            }} title="retour au menu des gestion" color="purple"/>
+            </View>
+            <View style={{flex:1,borderColor: 'black', borderWidth:4, marginTop:5, marginBottom: 5}}></View>
+            <View style={{margin:20, marginTop:20, borderColor: 'black', borderWidth:2}}>
+                <Button onPress={() => {
                 navigation.navigate("create-oeuvre")
             }} title="ajouter une oeuvre"/>
+            </View>
+            {profil.role == 'admin' ? <Text style={style.title}>Toutes les oeuvres : </Text> : <Text style={style.title}>Vos oeuvres : </Text>}
             <FlatList
+                style={{marginBottom: 350}}
                 data={oeuvre}
                 renderItem={function ({item}) {
                     return <View style={{
@@ -67,9 +74,17 @@ const GestionOeuvre = ({navigation}) => {
                             supprimer(item.id)
                         }} color="red" title=" s "/>
                         <View style={{marginLeft: 10}}>
-                            <Image source={{uri: item.image, width: 150, height: 100}}/>
-                            <Text style={{marginStart: 5}}> ID : {item.id}</Text>
-                            <Text style={{marginStart: 5}}> NOM : {item.nom}</Text>
+                            <View style={{marginLeft: 50, marginTop: 10, marginBottom: 10}}>
+                                <Image source={{uri: item.image, width: 150, height: 100}}/>
+                            </View>
+                            <View style={{marginStart: 5, flexDirection: 'row'}}>
+                                <Text style={{fontWeight: 'bold', color: 'red', marginTop: 4}}> ID : </Text>
+                                <Text style={{fontWeight: 'bold', color: 'blue', fontSize: 18}}>{item.id}</Text>
+                            </View>
+                            <View style={{marginStart: 5, flexDirection: 'row'}}>
+                                <Text style={{fontWeight: 'bold', color: 'red', marginTop: 4}}> NOM : </Text>
+                                <Text style={{fontWeight: 'bold', color: 'blue', fontSize: 18}}>{item.nom}</Text>
+                            </View>
                         </View>
                     </View>
                 }}
@@ -79,3 +94,9 @@ const GestionOeuvre = ({navigation}) => {
 }
 
 export default GestionOeuvre;
+
+const style = StyleSheet.create({
+    title: {
+        fontWeight: 'bold', fontSize: 20, marginBottom: 15, marginTop: 20, marginLeft: 5
+    },
+})

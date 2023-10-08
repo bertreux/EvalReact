@@ -1,4 +1,4 @@
-import {Image, Text, View} from "react-native";
+import {Image, Text, View, StyleSheet} from "react-native";
 import {useState, useEffect} from "react";
 import db from '../../firebaseConfig';
 import {doc, getDoc, Timestamp} from "firebase/firestore";
@@ -19,15 +19,22 @@ const Single = ({route}) => {
     }, [isFocused]);
 
     return (
-        <View style={{borderWidth: 1, borderBlockColor: "black", padding: 5, alignItems: "center"}}>
-            <Text>{oeuvre.nom}</Text>
-            <Image source={{uri: oeuvre.image, width: 150, height: 100}}/>
-            <Text>{oeuvre.description}</Text>
-            <Text>{oeuvre.auteur}</Text>
+        <View style={{padding: 5, alignItems: "center"}}>
+            <Text style={style.title}>{oeuvre.nom}</Text>
+            <Image source={{uri: oeuvre.image, width: 350, height: 200}}/>
+            <Text style={style.description}>{oeuvre.description}</Text>
+            <Text>Cette oeuvre a été publiée par {oeuvre.auteur}</Text>
             {Object.keys(dt_creation).length === 0 ? <Text>Date non connue</Text> :
-                <Text>Créée le {dt_creation.toDate().toLocaleDateString("fr-FR")}</Text>}
+                <Text>Publiée le {dt_creation.toDate().toLocaleDateString("fr-FR")}</Text>}
         </View>
     );
 }
 
 export default Single;
+
+const style = StyleSheet.create({
+    title: {
+        fontWeight: 'bold', fontSize: 30, marginBottom: 40, marginTop: 20
+    },
+    description: {marginTop: 50, fontWeight: '500', fontSize: 15, marginBottom: 30},
+})

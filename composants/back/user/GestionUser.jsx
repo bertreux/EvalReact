@@ -1,7 +1,7 @@
 import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import db from '../../../firebaseConfig';
-import {Button, FlatList, Text, View} from "react-native";
+import {Button, FlatList, Text, View, StyleSheet} from "react-native";
 import {useIsFocused} from "@react-navigation/native";
 
 const GestionUser = ({navigation}) => {
@@ -30,13 +30,20 @@ const GestionUser = ({navigation}) => {
 
     return (
         <View>
-            <Button onPress={() => {
+            <View style={{margin:20, marginTop:20, borderColor: 'black', borderWidth:2}}>
+                <Button onPress={() => {
                 navigation.navigate("gestion")
-            }} title="retour au menu des gestion"/>
+            }} title="retour au menu des gestion" color="purple"/>
+            </View>
+            <View style={{flex:1,borderColor: 'black', borderWidth:4, marginTop:5, marginBottom: 5}}></View>
+            <View style={{margin:20, marginTop:20, borderColor: 'black', borderWidth:2}}>
             <Button onPress={() => {
                 navigation.navigate("create-user")
             }} title="ajouter un user"/>
+            </View>
+            <Text style={style.title}>Tous les users : </Text>
             <FlatList
+                style={{marginBottom: 350}}
                 data={user}
                 renderItem={function ({item}) {
                     return <View style={{
@@ -48,15 +55,27 @@ const GestionUser = ({navigation}) => {
                     }}>
                         <Button onPress={function () {
                             navigation.navigate("update-user", {id: item.id})
-                        }} color="orange" title="m"/>
+                        }} color="orange" title=" m "/>
                         <Button onPress={function () {
                             supprimer(item.id)
-                        }} color="red" title="s"/>
+                        }} color="red" title=" s "/>
                         <View style={{marginLeft: 10}}>
-                            <Text style={{marginStart: 5}}>ID : {item.id}</Text>
-                            <Text style={{marginStart: 5}}>EMAIL : {item.email}</Text>
-                            <Text style={{marginStart: 5}}>PASSWORD : {item.password}</Text>
-                            <Text style={{marginStart: 5}}>ROLE : {item.role}</Text>
+                        <View style={style.crudCell}>
+                            <Text style={style.crudTitle}>ID : </Text>
+                            <Text style={style.crudValue}>{item.id}</Text>
+                        </View>
+                        <View style={style.crudCell}>
+                            <Text style={style.crudTitle}>EMAIL : </Text>
+                            <Text style={style.crudValue}>{item.email}</Text>
+                        </View>
+                        <View style={style.crudCell}>
+                            <Text style={style.crudTitle}>PASSWORD : </Text>
+                            <Text style={style.crudValue}>{item.password}</Text>
+                        </View>
+                        <View style={style.crudCell}>
+                            <Text style={style.crudTitle}>ROLE : </Text>
+                            <Text style={style.crudValue}>{item.role}</Text>
+                        </View>  
                         </View>
                     </View>
                 }}
@@ -66,3 +85,18 @@ const GestionUser = ({navigation}) => {
 }
 
 export default GestionUser;
+
+const style = StyleSheet.create({
+    title: {
+        fontWeight: 'bold', fontSize: 20, marginBottom: 15, marginTop: 20, marginLeft: 5
+    },
+    crudTitle:{
+        fontWeight: 'bold', color: 'red', marginTop: 4
+    },
+    crudValue:{
+        fontWeight: 'bold', color: 'blue', fontSize: 18
+    },
+    crudCell: {
+        marginStart: 5, flexDirection: 'row'
+    }
+})
